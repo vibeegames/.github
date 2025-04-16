@@ -1,6 +1,6 @@
-# VibeeGames
+# vibeegames
 
-VibeeGames is an **open GitHub organization** dedicated to creating **AI‑driven games** using **vibe coding**. Anyone can join, add a repo, and build a game—**as long as every line of code is generated via AI** (no manual typing!).
+vibeegames is an **open GitHub organization** dedicated to creating **AI‑driven games** using **vibe coding**. Anyone can join, add a repo, and build a game—**as long as every line of code is generated via AI** (no manual typing!).
 
 ---
 
@@ -12,7 +12,7 @@ Vibe coding means you never write code by hand—instead, you prompt an AI assis
 ## 🚀 Getting Started  
 
 1. **Join the Org**  
-   - Click **“Join VibeeGames”** on our GitHub page or open an issue to request membership.  
+   - Click **“Join vibeegames”** on our GitHub page or open an issue to request membership.  
 2. **Create a New Repo**  
    - Name it `game-<your-game-name>` (e.g. `game-space-explorer`).  
    - Add a top‑level `README.md` describing your game concept and AI‑prompt workflow.  
@@ -88,4 +88,4 @@ We follow the [Contributor Covenant v2.1](https://www.contributor-covenant.org/)
 ---
 
 ## 📜 License  
-Unless otherwise noted, all repos in VibeeGames default to the **MIT License**. See [LICENSE‑MIT](https://opensource.org/licenses/MIT) for details.  
+Unless otherwise noted, all repos in vibeegames default to the **MIT License**. See [LICENSE‑MIT](https://opensource.org/licenses/MIT) for details.  
