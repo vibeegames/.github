@@ -1,0 +1,51 @@
+name: Sync Deploy Workflow
+
+# you can trigger it manually, or have it run nightly
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'  # every night at 03:00 UTC
+
+permissions:
+  contents: write       # so we can push files into other repos
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. check out the .github repo (so we can read our template)
+      - name: Checkout repo metadata
+        uses: actions/checkout@v3
+        with:
+          repository: vibeegames/.github
+          path: org-meta
+
+      # 2. install GitHub CLI
+      - name: Set up GitHub CLI
+        uses: cli/cli-action@v2
+
+      # 3. loop over every game-* repo and push the workflow file
+      - name: Sync to all game-* repos
+        env:
+          ORG: vibeegames
+        run: |
+          TEMPLATE_FILE=org-meta/.github/workflow-templates/deploy-template.yml
+
+          # base64‑encode the template so we can embed it in the API call
+          TEMPLATE_B64=$(base64 -w0 $TEMPLATE_FILE)
+
+          for repo in $(gh repo list $ORG --json name --jq '.[].name' | grep '^game-'); do
+            echo "⏳ Syncing $repo…"
+
+            # fetch existing file SHA if it exists
+            SHA=$(gh api repos/$ORG/$repo/contents/.github/workflows/deploy.yml \
+              --jq .sha 2>/dev/null || echo)
+
+            # create or update the file
+            gh api repos/$ORG/$repo/contents/.github/workflows/deploy.yml \
+              -X PUT \
+              -f message="chore: sync deploy workflow" \
+              -f content="$TEMPLATE_B64" \
+              -f sha="$SHA" \
+              -f committer='{"name":"github-actions","email":"actions@github.com"}'
+          done
